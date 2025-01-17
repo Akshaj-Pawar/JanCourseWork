@@ -1,0 +1,23 @@
+{
+  "name": "jan-project-package",
+  "version": "1.0.0",
+  "description": "package",
+  "main": "button_click.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akshaj-Pawar/JanCourseWork.git"
+  },
+  "author": "AkshajPawar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akshaj-Pawar/JanCourseWork/issues"
+  },
+  "homepage": "https://github.com/Akshaj-Pawar/JanCourseWork#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
