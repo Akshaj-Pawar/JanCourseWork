@@ -1,24 +1,23 @@
 const express = require('express');
 //const path = require('path');
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
 
 app.use(express.static('client'));
 
 //3 kinds of get methods over here:
 
-//app.get("/", function(req, resp){
-//
-//})
+let colour = 'Crimson: Speaks to a raw and passionate heart'
 
-//app.get('/api/data', (req, res) => {
-//    res.json({ message: 'Hello from the server!' });
-//});
-
-//app.get('/', (req, res) => {
-//    res.sendFile(path.join(__dirname, 'question_page.html'));
-//});
+app.get("/final", function(req, resp){
+    resp.send(colour)
+})
 
 app.listen(8080, () => console.log('Server running at http://127.0.0.1:8080/'));
+
+//Bug: cannot load local resources (js files) even when moved into the client folder
 
 //things to do:
 //1) okay i feel like we have a server that exists so just do the weird ajax thing

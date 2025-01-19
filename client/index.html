@@ -11,7 +11,7 @@
 
 <body>
     <p id="title">Q1: </p>
-    <iframe id="question" src="file:///Users/akshajpawar/Desktop/WritingBlog/client/Questions/q1.html" width="100%" height="500px"></iframe>
+    <iframe id="question" src="Questions/q1.html" width="100%" height="100px"></iframe>
     <br></br>
     <script>
         let questions_answered = 1
@@ -20,14 +20,21 @@
         let fuchsia = 0
         let verdant = 0
     </script>
-    <button onclick="log_answer(ans='A')" type="button" class="btn btn-secondary btn-lg btn-block">{{TextA}}</button>
+    <button onclick="log_answer(ans='A')" type="button" class="btn btn-secondary btn-lg btn-block">A</button>
     <br></br>
-    <button onclick="log_answer(ans='B')" type="button" class="btn btn-secondary btn-lg btn-block">{{TextB}}</button>
+    <button onclick="log_answer(ans='B')" type="button" class="btn btn-secondary btn-lg btn-block">B</button>
     <br></br>
-    <button onclick="log_answer(ans='C')" type="button" class="btn btn-secondary btn-lg btn-block">{{TextC}}</button>
+    <button onclick="log_answer(ans='C')" type="button" class="btn btn-secondary btn-lg btn-block">C</button>
     <br></br>
-    <button onclick="secret_fetch()" type="button" class="btn btn-secondary btn-lg btn-block">{{TextSecret}}</button>
-
+    <button onclick="log_answer(ans='D')" type="button" class="btn btn-secondary btn-lg btn-block">D</button>
+    <br></br>
+    <button onclick="log_answer(ans='E')" type="button" class="btn btn-secondary btn-lg btn-block">E</button>
+    <br></br>
+    <button onclick="log_answer(ans='F')" type="button" class="btn btn-secondary btn-lg btn-block">F</button>
+    <br></br>
+    <div id="answer">
+        <p>Colour will display here once all questions are answered</p>
+    </div>
 </body>
 
 </html>
