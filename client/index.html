@@ -11,7 +11,9 @@
 
 <body>
     <p id="title">Q1: </p>
-    <iframe id="question" src="Questions/q1.html" width="100%" height="100px"></iframe>
+    <div id="question">
+        <p>You are in a dark forest with a swift river winding through, forking this way and that. You can hear wolves.</p>
+    </div>
     <br></br>
     <script>
         let questions_answered = 1
@@ -20,17 +22,17 @@
         let fuchsia = 0
         let verdant = 0
     </script>
-    <button onclick="log_answer(ans='A')" type="button" class="btn btn-secondary btn-lg btn-block">A</button>
+    <button id="A" onclick="log_answer(ans='A')" type="button" class="btn btn-secondary btn-lg btn-block">Let me solo the wolves. They are stronger when you are running from them and it will be a death worth singing about.</button>
     <br></br>
-    <button onclick="log_answer(ans='B')" type="button" class="btn btn-secondary btn-lg btn-block">B</button>
+    <button id="B" onclick="log_answer(ans='B')" type="button" class="btn btn-secondary btn-lg btn-block">The wolves scare me. They could be anywhere and I cant face them alone. I spend some time building a raft and entrust myself to the current, it has to lead somewhere good, since all the water seems to want to go that way</button>
     <br></br>
-    <button onclick="log_answer(ans='C')" type="button" class="btn btn-secondary btn-lg btn-block">C</button>
+    <button id="C" onclick="log_answer(ans='C')" type="button" class="btn btn-secondary btn-lg btn-block">The river scares me, it is wild and wanton and besides it is not taking me the right direction. Instead i brave the woods, mostly guided by my own lantern</button>
     <br></br>
-    <button onclick="log_answer(ans='D')" type="button" class="btn btn-secondary btn-lg btn-block">D</button>
+    <button id="D" onclick="log_answer(ans='D')" type="button" class="btn btn-secondary btn-lg btn-block">I cant survive alone in the cold. I find the nearest campfire or log cabin with food and warmth and other people and I stay there until I cant anymore. Wash rinse repeat, until the wolves move on, or the rivers torrent lessens, or I gain more information to work with</button>
     <br></br>
-    <button onclick="log_answer(ans='E')" type="button" class="btn btn-secondary btn-lg btn-block">E</button>
+    <button id="E" onclick="log_answer(ans='E')" type="button" class="btn btn-secondary btn-lg btn-block">I need to learn how to survive alone in the cold, I make a bow and arrows, learn how to start a fire, keep practicing until the wolves move on, or the rivers torrent lessens, or at least I gain more information to work with</button>
     <br></br>
-    <button onclick="log_answer(ans='F')" type="button" class="btn btn-secondary btn-lg btn-block">F</button>
+    <button id="F" onclick="log_answer(ans='F')" type="button" class="btn btn-secondary btn-lg btn-block">If I am in the forest, the forest is where I will stay. I will build a cabin by the riverside - or just spend my days walking and talking to any animals who will listen. The wolves will eat me one day, but until then the forest is beautiful</button>
     <br></br>
     <div id="answer">
         <p>Colour will display here once all questions are answered</p>

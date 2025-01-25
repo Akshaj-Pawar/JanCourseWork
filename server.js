@@ -1,23 +1,41 @@
 const express = require('express');
 //const path = require('path');
 const app = express();
-const cors = require('cors');
-
-app.use(cors());
 
 app.use(express.static('client'));
 
 //3 kinds of get methods over here:
 
-let colour = 'Crimson: Speaks to a raw and passionate heart'
+let q_data = require("./data/q_data.json")
+
+app.get("/api/data/q_data/questiontext", function(req, resp){
+    //get method for question text, takes questions_answered as a parameter
+    const index = parseInt(req.query.index, 10);
+    resp.send(q_data[0]["q"][index])
+    //Api documentation, url, parameters, function description for each REST get and POST methods on a seperate HTMl page
+})
+
+app.get("/api/data/q_data/optiontext", function(req, resp){
+    //get method for the text on the buttons, takes questions_answered and the button id as a parameter
+    let opt = (req.query.option + '_text');
+    const index = parseInt(req.query.index, 10);
+    resp.send(q_data[0][opt][index])
+})
+
+app.get("/api/data/q_data/score", function(req, resp){
+    let opt = req.query.ans
+    let key = req.query.attributekey
+    const index = parseInt(req.query.index, 10);
+    resp.send(q_data[0][opt][key][index])
+})
+
+let colour = 'Crimson'
 
 app.get("/final", function(req, resp){
     resp.send(colour)
 })
 
 app.listen(8080, () => console.log('Server running at http://127.0.0.1:8080/'));
-
-//Bug: cannot load local resources (js files) even when moved into the client folder
 
 //things to do:
 //1) okay i feel like we have a server that exists so just do the weird ajax thing
