@@ -1,0 +1,33 @@
+{
+    "Descriptions": 
+    {
+        "Crimson": "Crimson: This is the vibe of people who enjoy chaos, conquest and challenge - youre always at war with something, always finding new mountains to climb. Passivity does not come naturally to you. Yet you tend to be concerned with visceral problems rather than philosphical ones. Youre a thrill seeker, love a good rush - and tend to prefer practical attacks emphasising brutal force.",
+        "Scarlet": "Scarlet: The colour of rampant emotion, desire and revelry. You follow your heart and have an intoxicating vitality that sweeps conversations into freefall. You live in the moment and feel things strongly. You never forget an enemy, much less a good friend. You're a bit of a dreamer, a bit of a daredevil, but in a 'teehee' way, not a 'grrr' way", 
+        "Mahogany": "Mahogany: A deep grounded colour representing subtle gentlemanly people who enjoy the pleasures of the flesh. You're the kind of person who insists upon matching the right hat with the right coat and are probably picky about your food",
+        "Afterglow": "Afterglow: A cosy innocent shade of pink representing hope and cosmic bliss, the colour for those who believe or want to believe that the universe is kind. You have a certain whimsy and wistfulness to you - a certain longing. You want to believe in miracles, and like to hope for the best",
+        "Fuchsia": "Fuchsia: A perky playful colour, associated with change and novelty driven by the whims of the human heart. Eye catching. Resonates with rebels and individualists who strive to find places where they can express themselves, but also performers who revel in the thrill of the show. You care about feeling seen. You also care a lot about personal volition.",
+        "Tyrian": "Tyrian: The word tyrant originally meant someone who came into a position of power by seizing it themselves. This is a regal colour associated with breaking boundaries, conquest and recreating the world in ones image - defiant without the detachment of the deep blues or the carnality of the deep reds. If you are debaucherous, its usually debauchery of the soul, rather than of the senses",
+        "Golden": "Golden: The colour of the sun and of wealth, strongly associated with elegance and order (especialy since Elden Ring). You run a tight ship, you like having control over things - you like being seen and recognised, even when you relax, you enjoy adding a competitive element to it.",
+        "Mint": "Mint: A grounded but unobtrusive shade with a fresh anti-spicy undertone. Soothing and invigorating at once, attracts healers and mental butterflies",
+        "Verdant": "Verdant: A deep almost awe inspiring shade that spekas of deep entrenched wisdom and an almost overpowering capacity for growth - like you are going to do your thing no matter what anyone says. This shade is ultimately enduring and adaptable - possessing a confidence that comes from surviving the ravages of life before.",
+        "Azure": "Azure: A light blue, associated with the sky and flowing water. I consider this to be ‘warrior blue’. You are an elegant fighter and revel in your hard earned skills. You like having a cause to fight for. You value activity and motion. If you're a fighter, youre constantly honing your skills. If youre a thinker, you like talking about ‘beautiful’ proofs.",
+        "Cerulean": "Cerulean: You try to distance yourself from the demands of society, in particular you find the quick pace of real life exhausting. You like to wonder and wander, long conversations in the dead of night - deep thoughts that tend to swirl and spiral if you dont keep them undercontrol. Youre strongest when you can manage yourself and dont like wearing masks around others or dumbing yourself down for them.",
+        "Black": "Black: You got this colour if your answers suggested a fascination with the unknown or the taboo, or a certian disdain for the demands of polite society. Confidence in the face of danger, and a sardonic revelry in what others fear, as well as a general weight of presence, might also have been contirbuting factors"
+    },
+    "Image_URLs":
+    {
+        "Crimson": "",
+        "Scarlet": "", 
+        "Mahogany": "",
+        "Afterglow": "",
+        "Fuchsia": "",
+        "Tyrian": "",
+        "Golden": "",
+        "Mint": "",
+        "Verdant": "",
+        "Azure": "",
+        "Cerulean": "",
+        "Cyan":"",
+        "Black": ""
+    }
+}
