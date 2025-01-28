@@ -17,10 +17,6 @@
     <br></br>
     <script>
         let questions_answered = 1
-        let question_list = ["q1.html", "q2.html", "q3.html", "q4.html", "q5.html", "q1.html"]
-        let crimson = 0
-        let fuchsia = 0
-        let verdant = 0
     </script>
     <button id="A" onclick="log_answer(ans='A')" type="button" class="btn btn-secondary btn-lg btn-block">Let me solo the wolves. They are stronger when you are running from them and it will be a death worth singing about.</button>
     <br></br>
@@ -37,6 +33,31 @@
     <div id="answer">
         <p>Colour will display here once all questions are answered</p>
     </div>
+    <br>
+    <div id="pictures">
+        <p></p>
+    </div>
+    <br></br>
+    <button id="L" onclick="list_colours()" type="button" class="btn btn-secondary btn-lg btn-block">List Colours (Spoilers)</button>
+    <div id="CL">
+        <p></p>
+    </div>
+    <br>
+    <form id="img_upload">
+        Upload Images
+        <div class="form-group">
+            <label for="image_url">image</label>
+            <input type="email" class="form-control" id="image_upload_url" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select the Colour</label>
+            <select class="form-control" id="colour_selection">
+              <option>I haven't finished the questions</option>
+            </select>
+          </div>
+        <input type="submit">Submit<input>
+    </form>
+<br></br>
 </body>
 
 </html>

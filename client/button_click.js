@@ -1,3 +1,4 @@
+let online = true;
 questions_answered = 0
 num_qs = 10
 X = [0, 0, 0]
@@ -20,60 +21,67 @@ let flags =
     //currently this feature is not in use
 }
 
-function log_answer()
+async function log_answer()
 {
-    questions_answered++
-    if (questions_answered <= num_qs){
-        //updating scores
-        for (let i = 0; i < 3; i++){
-            key = attribute_keys[i];
-            extract_score((questions_answered - 2), key, ans)
-            .then(x_score => {
-                attribute_scores[i] += x_score;
-                console.log(attribute_scores[i])
-            })
-        }
-        console.log(attribute_scores);
-
-        //update title
-        qstring = questions_answered.toString()
-        new_title = 'Q'.concat(qstring, ": ")
-        document.getElementById('title').innerHTML = new_title;
-
-        //update question
-        update_question(questions_answered - 1)
-        
-        //update the button texts
-        button_ids = ['A', 'B', 'C', 'D', 'E', 'F']
-        for (let i = 0; i < 6; i++) {
-            option = button_ids[i];
-            update_button(option, (questions_answered - 1))
-          }
-    }
-    
-    if (questions_answered > num_qs) {
-        
-        //normalise attribute_scores
-        //attribute_scores[0] -= 10
-        //attribute_scores[2] -= 10
-        console.log(attribute_scores)
-
-        colour_list = create_colour_list(attribute_scores[0], attribute_scores[1], attribute_scores[2])
-        console.log(colour_list)
-        fit_colour_key = find_fittest_colour(colour_list)
-
-        fetch('http://127.0.0.1:8080/final?colour=' + fit_colour_key)
-         .then(response => {
-            if (response.ok) {
-                return response.text()
+    online = await getServerHealth();
+    console.log(online)
+    if (online)
+    {
+        questions_answered++
+        if (questions_answered <= num_qs){
+            //updating scores
+            for (let i = 0; i < 3; i++){
+                key = attribute_keys[i];
+                extract_score((questions_answered - 2), key, ans)
+                .then(x_score => {
+                    attribute_scores[i] += x_score;
+                    console.log(attribute_scores[i])
+                })
             }
-            else {
-                document.getElementById('answer').innerHTML='Error: File does not exist'
-            }})
-         .then(body =>document.getElementById('answer').innerHTML=body)
-         .catch((error) => {
-            document.getElementById('answer').innerHTML='Error: Could not connect to server'
-         })
+            console.log(attribute_scores);
+    
+            //update title
+            qstring = questions_answered.toString()
+            new_title = 'Q'.concat(qstring, ": ")
+            document.getElementById('title').innerHTML = new_title;
+    
+            //update question
+            update_question(questions_answered - 1)
+            
+            //update the button texts
+            button_ids = ['A', 'B', 'C', 'D', 'E', 'F']
+            for (let i = 0; i < 6; i++) {
+                option = button_ids[i];
+                update_button(option, (questions_answered - 1))
+              }
+        }
+        
+        if (questions_answered > num_qs) {
+            
+            //normalise attribute_scores
+            //attribute_scores[0] -= 10
+            //attribute_scores[2] -= 10
+            console.log(attribute_scores)
+    
+            colour_list = create_colour_list(attribute_scores[0], attribute_scores[1], attribute_scores[2])
+            console.log(colour_list)
+            fit_colour_key = find_fittest_colour(colour_list)
+    
+            fetch('http://127.0.0.1:8080/final?colour=' + fit_colour_key)
+             .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    document.getElementById('answer').innerHTML='Error: File does not exist'
+                }})
+             .then(body =>document.getElementById('answer').innerHTML=body)
+             .catch((error) => {
+                document.getElementById('answer').innerHTML='Error: Could not connect to server'
+             })
+
+            list_pictures(fit_colour_key)
+        }
     }
 }
 
@@ -179,4 +187,87 @@ function find_fittest_colour(colour_list)
     }
     console.log(colour_key_list[max_index])
     return(colour_key_list[max_index])
+}
+
+function getServerHealth()
+{
+    const url = 'http://127.0.0.1:8080/api/health'
+
+    return fetch(url)
+        .then((response) => {
+            if (response.ok) {
+                return(true);
+            }
+            else {
+                return(true);
+            }
+        })
+        .catch((error) => {
+            online = false;
+            console.log(online);
+            document.getElementById('question').innerHTML='Error: Could not connect to server';
+            return(false);
+         })
+}
+
+function list_colours(){
+    if (questions_answered > num_qs){
+        const url = 'http://127.0.0.1:8080/api/data/a_data/colour_list';
+        fetch(url)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            else {
+                document.getElementById('CL').innerHTML='Error: File does not exist';
+            }
+        })
+        .then(body => {
+            const container1 = document.getElementById('CL')
+            container1.replaceChildren()
+            for(let i = 0; i < body.length; i++) {
+                let div_new = document.createElement("div")
+                div_new.innerHTML = body[i]
+                container1.appendChild(div_new)
+            }
+            const container2 = document.getElementById('colour_selection')
+            container2.replaceChildren();
+            //the above works fine
+            for(let i = 0; i < body.length; i++) {
+                let opt_new = document.createElement("option")
+                console.log('w2')
+                opt_new.innerHTML = body[i]
+                console.log('w3')
+                container2.appendChild(opt_new)
+            }
+        })
+        .catch((error) => {
+            document.getElementById('CL').innerHTML='Error: Could not connect to server';
+        })
+    }
+}
+
+function list_pictures(colour){
+    const url = 'http://127.0.0.1:8080/api/data/a_data/picture_list?colour=' + colour;
+    fetch(url)
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        else {
+            document.getElementById('CL').innerHTML='Error: File does not exist';
+        }
+    })
+    .then(body => {
+        const container = document.getElementById('pictures')
+        for(let i = 0; i < body.length; i++) {
+            let img_new = document.createElement("img");
+            img_new.alt = colour + ' ' + String(i);
+            img_new.src = body[i]
+            container.appendChild(div_new)
+        }
+    })
+    .catch((error) => {
+        document.getElementById('CL').innerHTML='Error: Could not connect to server';
+    })
 }

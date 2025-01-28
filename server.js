@@ -4,7 +4,9 @@ const app = express();
 
 app.use(express.static('client'));
 
-//3 kinds of get methods over here:
+app.get("/api/health", function(req, resp){
+    resp.send('functionality moment')
+})
 
 let q_data = require("./data/q_data.json")
 let a_data = require("./data/a_data.json")
@@ -33,7 +35,18 @@ app.get("/api/data/q_data/score", function(req, resp){
 
 app.get("/final", function(req, resp){
     let colour = req.query.colour
-    resp.send(a_data["Descriptions"][colour])
+    resp.json(a_data["Descriptions"][colour])
+})
+
+app.get("/api/data/a_data/colour_list", function(req, resp){
+    list = Object.keys(a_data["Descriptions"])
+    resp.json(list)
+})
+
+app.get('/api/data/a_data/picture_list', function(req, resp){
+    let colour = req.query.colour
+    list = Object.values(a_data["Image_URLs"][colour])
+    resp.json(list)
 })
 
 app.listen(8080, () => console.log('Server running at http://127.0.0.1:8080/'));

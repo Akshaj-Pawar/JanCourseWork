@@ -16,18 +16,18 @@
     },
     "Image_URLs":
     {
-        "Crimson": "",
-        "Scarlet": "", 
-        "Mahogany": "",
-        "Afterglow": "",
-        "Fuchsia": "",
-        "Tyrian": "",
-        "Golden": "",
-        "Mint": "",
-        "Verdant": "",
-        "Azure": "",
-        "Cerulean": "",
-        "Cyan":"",
-        "Black": ""
+        "Crimson": [""],
+        "Scarlet": [""], 
+        "Mahogany": [""],
+        "Afterglow": [""],
+        "Fuchsia": [""],
+        "Tyrian": [""],
+        "Golden": [""],
+        "Mint": [""],
+        "Verdant": [""],
+        "Azure": [""],
+        "Cerulean": [""],
+        "Cyan":[""],
+        "Black": [""]
     }
 }
