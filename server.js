@@ -1,6 +1,7 @@
 const express = require('express');
 //const path = require('path');
 const app = express();
+const fs = require('fs');
 
 app.use(express.json())
 app.use(express.static('client'));
@@ -57,6 +58,9 @@ app.post("/api/data/a_data/add_picture", function(req, resp){
     console.log(typeof a_data["Image_URLs"][post_key]);
     (a_data["Image_URLs"][post_key]).push(url)
     console.log(a_data["Image_URLs"][post_key])
+    resp.json(a_data["Image_URLs"][post_key])
+    let data = JSON.stringify(a_data);
+    fs.writeFileSync("data/a_data.json", data)
 })
 
 app.listen(8080, () => console.log('Server running at http://127.0.0.1:8080/'));

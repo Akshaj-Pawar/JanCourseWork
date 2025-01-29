@@ -3,7 +3,7 @@ img_form.addEventListener('submit', async function(event){
     event.preventDefault();
     const imgFormData = new FormData(img_form)
     const img_key = String(imgFormData.get("selected_colour"))
-    if (!imgFormData || img_key=='I havent finished the questions') {
+    if (!imgFormData || img_key=='Click List Colours After Finishing All Questions') {
         return;
     }
     const formJSON = JSON.stringify(Object.fromEntries(imgFormData.entries()))
@@ -22,4 +22,6 @@ img_form.addEventListener('submit', async function(event){
     else {
         alert( 'Problem with POST request ' + response.statusText);
     }
+    console.log('listing1')
+    list_pictures(img_key)
 })

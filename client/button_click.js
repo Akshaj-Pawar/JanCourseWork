@@ -80,6 +80,8 @@ async function log_answer()
                 document.getElementById('answer').innerHTML='Error: Could not connect to server'
              })
 
+            console.log('just before list pictures: ' + fit_colour_key)
+
             list_pictures(fit_colour_key)
         }
     }
@@ -258,11 +260,14 @@ function list_pictures(colour){
     })
     .then(body => {
         const container = document.getElementById('pictures')
+        container.replaceChildren()
         for(let i = 0; i < body.length; i++) {
             let img_new = document.createElement("img");
             img_new.alt = colour + ' ' + String(i);
             img_new.src = body[i]
-            container.appendChild(div_new)
+            img_new.style.maxHeight = "100%";
+            img_new.style.width = "auto"; 
+            container.appendChild(img_new)
         }
     })
     .catch((error) => {
