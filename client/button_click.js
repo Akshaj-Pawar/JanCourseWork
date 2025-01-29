@@ -235,9 +235,7 @@ function list_colours(){
             //the above works fine
             for(let i = 0; i < body.length; i++) {
                 let opt_new = document.createElement("option")
-                console.log('w2')
                 opt_new.innerHTML = body[i]
-                console.log('w3')
                 container2.appendChild(opt_new)
             }
         })

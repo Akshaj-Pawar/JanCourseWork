@@ -2,6 +2,7 @@ const express = require('express');
 //const path = require('path');
 const app = express();
 
+app.use(express.json())
 app.use(express.static('client'));
 
 app.get("/api/health", function(req, resp){
@@ -47,6 +48,15 @@ app.get('/api/data/a_data/picture_list', function(req, resp){
     let colour = req.query.colour
     list = Object.values(a_data["Image_URLs"][colour])
     resp.json(list)
+})
+
+app.post("/api/data/a_data/add_picture", function(req, resp){
+    const url = req.body.image_url
+    const post_key = req.body.selected_colour
+    console.log(a_data["Image_URLs"][post_key])
+    console.log(typeof a_data["Image_URLs"][post_key]);
+    (a_data["Image_URLs"][post_key]).push(url)
+    console.log(a_data["Image_URLs"][post_key])
 })
 
 app.listen(8080, () => console.log('Server running at http://127.0.0.1:8080/'));

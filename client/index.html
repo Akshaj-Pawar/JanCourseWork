@@ -43,20 +43,22 @@
         <p></p>
     </div>
     <br>
-    <form id="img_upload">
+    <form id="img_upload" method="post">
         Upload Images
         <div class="form-group">
             <label for="image_url">image</label>
-            <input type="email" class="form-control" id="image_upload_url" placeholder="">
-          </div>
+            <p>try this: https://commons.wikimedia.org/wiki/User:AKBYS</p>
+            <input class="form-control" type="url" name="image_url" placeholder="Default input" required>
+        </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Select the Colour</label>
-            <select class="form-control" id="colour_selection">
-              <option>I haven't finished the questions</option>
+            <label for="select_colour">Select the Colour</label>
+            <select name="selected_colour" class="form-control" id="colour_selection">
+              <option>I havent finished the questions</option>
             </select>
           </div>
-        <input type="submit">Submit<input>
+        <input type="submit">Submit</input>
     </form>
+    <script src="form_submit.js"></script>
 <br></br>
 </body>
 
