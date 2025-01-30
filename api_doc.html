@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <!-- 
+Please note that this css is not my code - it can be found here: https://github.com/floriannicolas/API-Documentation-HTML-Template/blob/master/css/style.css
+
+Copyright:
+
+MIT License
+
+Copyright (c) 2016 Florian Nicolas
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+     
+    -->
+    <style>
+        body{
+            position:relative;
+            min-height: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+        .content a{
+            color: #00a8e3;
+            text-decoration: none;
+        }
+        strong{
+            font-weight: 500;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p, .content ul, .content ol{
+            font-size: 14px;
+            color: #777A7A;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .content h1:first-child{
+            font-size: 1.333em;
+            color: #034c8f;
+            padding-top: 2.5em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            border-top-width: 0;
+            margin-top: 0;
+            margin-bottom: 1.3em;
+            clear: both;
+        }
+        code,
+        pre{
+            font-family: 'Source Code Pro', monospace;
+        }
+        .higlighted{
+            background-color: rgba(0,0,0,0.05);
+            padding: 3px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>API Documentation</h1>
+        <p>This API documents the various GET and POST methods utilised by the site, providing various endpoits and details on functionality, parameters and response</p>
+        
+        <section>
+            <h2>Installing and starting: </h2>
+            <p>To install necessary dependencies run the following command</p>
+            <pre><code>npm install</code></pre>
+            <p>To start the server run the following command</p>
+            <pre><code>npm start</code></pre>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/health</span></h2>
+            <p><strong>Description:</strong> When a button is pressed, this method is called before anything else. It returns a basic response confirming that the server is online and if it isn't, prevents any changes being made to the state of the webpage.</p>
+            <p><strong>Parameters:</strong> None</p>
+            <p><strong>Response:</strong> "functional"</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/q_data/questiontext</span></h2>
+            <p><strong>Description:</strong> Called on every button press, retrieves the question text corresponding to the upcoming question</p>
+            <strong>Parameters:</strong>
+            <p>index: integer: corresponds to number of questions answered</p>
+            <p><strong>Response:</strong> a string from the flatfile questions database</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/q_data/optiontext</span></h2>
+            <p><strong>Description:</strong> Called six times on every button press, retrieves the text corresponding to the defined question and option within that question</p>
+            <strong>Parameters:</strong>
+            <p>index: integer: corresponds to number of questions answered</p>
+            <p>opt: single character string for charcaters A-F: corresponds to which of six button is being overwritten</p>
+            <p><strong>Response:</strong> a string from the flatfile questions database</p>
+        </section>
+        <br>        
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/q_data/score</span></h2>
+            <p><strong>Description:</strong> Each answer option corresponds to three unique lists of integers, this method retrieves the integer corresponding to the current question for one of these lists, it is always called thrice, once for each of these lists</p>
+            <strong>Parameters:</strong>
+            <p>index: integer: corresponds to number of questions answered</p>
+            <p>opt: single character string for charcaters A-F: corresponds to which of six button is being overwritten</p>
+            <p>key: string = either to 'Warmth', 'Grace', or 'Virtuosity': corresponds to which of the three lists the method is to extract data from</p>
+            <p><strong>Response:</strong> an stringified integer from the flatfile questions database</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/final</span></h2>
+            <p><strong>Description:</strong> Upon completing the questions each user is assigned a colour. This method fetches an object containing the details of an given colour. Called once upon completing all questions.</p>
+            <strong>Parameters:</strong>
+            <p>colour: string from the list of valid colours: corresponds to the key identifying with object to retrieve</p>
+            <p><strong>Response:</strong> a JSON object from the flatfile colours database</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/a_data/colour_list</span></h2>
+            <p><strong>Description:</strong> Called when the button with id 'L' is pressed. Gets a list of all possible colours that a user can be assigned</p>
+            <p><strong>Parameters:</strong> None</p>
+            <p><strong>Response:</strong> a JSON list from the flatfile colours database/p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/a_data/picture_list</span></h2>
+            <p><strong>Description:</strong> Called upon completing all questions and whenever the image upload form is submitted. Retrives an array of image_urls associated with the given colour.</p>
+            <strong>Parameters:</strong>
+            <p>colour: string from the list of valid colours: corresponds to the key identifying which object to retrieve</p>
+            <p><strong>Response:</strong> a JSON list from the flatfile colours database</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>GET <span class="highlighted">/api/data/a_data/picture_list</span></h2>
+            <p><strong>Description:</strong> Called upon completing all questions and whenever the image upload form is submitted. Retrives an array of image_urls associated with the given colour.</p>
+            <strong>Parameters:</strong>
+            <p>colour: string from the list of valid colours: corresponds to the key identifying which object to retrieve</p>
+            <p><strong>Response:</strong> a JSON list from the flatfile colours database</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>POST <span class="highlighted">/api/data/a_data/add_picture</span></h2>
+            <p><strong>Description:</strong> Called upon the completion of the form. Pushes the given image url into the array of urls associateed with the given colour. Also overwrites the flatfile to make this permanent.</p>
+            <strong>Parameters:</strong>
+            <p>body: JSON object consisting of two form fields, a colour and image url</p>
+            <p>body[selected_colour]: string from the list of valid colours: this body parameter corresponds to the key identifying where to push the data into</p>
+            <p>body[image_url]: string: this body parameter corresponds to a valid url for an image</p>
+            <p><strong>Response:</strong> a JSON object containing the array of image urls for the given colour. Also updates the flatfile colours database, so the url is added to the url array for the given colour</p>
+        </section>
+
+    </div>
+</body>
+</html>

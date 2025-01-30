@@ -21,13 +21,16 @@ let flags =
     //currently this feature is not in use
 }
 
+
+//this is the parent function called upon each button press, most other functions will be called by it, including the functions that update the text shown on screen and the colour scores that determine final colour assignment
 async function log_answer()
 {
+    //if statement ensures graceful handling of server disconnection by preventing the state of the program being changed while offline, otherwise changes are amde that aren't saved
     online = await getServerHealth();
-    console.log(online)
     if (online)
     {
         questions_answered++
+        //need to ensure you can't keep pressing buttons after we've run out of questions
         if (questions_answered <= num_qs){
             //updating scores
             for (let i = 0; i < 3; i++){
@@ -56,18 +59,18 @@ async function log_answer()
               }
         }
         
+        //this block is called after the last button press, it displays the details of the colour the user was assigned to
         if (questions_answered > num_qs) {
             
-            //normalise attribute_scores
-            //attribute_scores[0] -= 10
-            //attribute_scores[2] -= 10
             console.log(attribute_scores)
-    
+
+            //the scores are plugged into fitness functions correspondign to each colour, the highest fitness colour is identified
             colour_list = create_colour_list(attribute_scores[0], attribute_scores[1], attribute_scores[2])
             console.log(colour_list)
             fit_colour_key = find_fittest_colour(colour_list)
-    
-            fetch('http://127.0.0.1:8080/final?colour=' + fit_colour_key)
+            
+            //updates a div to show the detaisl of the colour assigned
+            fetch('http://127.0.0.1:8080/api/final?colour=' + fit_colour_key)
              .then(response => {
                 if (response.ok) {
                     return response.json()
@@ -82,6 +85,7 @@ async function log_answer()
 
             console.log('just before list pictures: ' + fit_colour_key)
 
+            //displays all images associated with the assigned colour
             list_pictures(fit_colour_key)
         }
     }
@@ -89,6 +93,7 @@ async function log_answer()
 
 function update_question(index)
 {
+    //updates the question text
     const url = 'http://127.0.0.1:8080/api/data/q_data/questiontext?index=' + String(index);
     fetch(url)
          .then(response => {
@@ -106,6 +111,7 @@ function update_question(index)
 
 function update_button(option, index)
 {
+    //called once for each button every new question, updates the display text of the button
     const url = 'http://127.0.0.1:8080/api/data/q_data/optiontext?index=' + String(index) + '&option=' + option;
     fetch(url)
          .then(response => {
@@ -123,6 +129,7 @@ function update_button(option, index)
 
 function extract_score(index, key, ans)
 {
+    //called thrice every time an answer is submitted, retrieves the warmth, grace and virtuosity increments associated with the given question-option combination, see q_data for clarification
     const url = 'http://127.0.0.1:8080/api/data/q_data/score?index=' + String(index) + '&attributekey=' + key + '&ans=' + ans;
     
     return new Promise((resolve, reject) => {
@@ -155,7 +162,8 @@ function extract_score(index, key, ans)
 
 function create_colour_list(W, G, V, flags)
 {
-    //note that the flag feature has no been implemented, if it were to be implemented things wou;ld be reshuffled tor duce the bias
+    //plugs the three scores into fitness functions for each colour, then returns the object contianing all of them
+    //note that the flag feature has not been implemented, if it were to be implemented things wou;ld be reshuffled tor duce the bias
     colour_list = {
         'Crimson': ((3*Math.sqrt(2) / 2)*W - (3*Math.sqrt(2) / 4)*G - (3*Math.sqrt(2) / 4)*V), //works
         'Scarlet': (Math.sqrt(5)*W), //too close to crimson for comfort, also the friendship + passion route is the only way to get to scarlet which isn't exactly what we want
@@ -176,6 +184,7 @@ function create_colour_list(W, G, V, flags)
 
 function find_fittest_colour(colour_list)
 {
+    //finds the colour with highest fitness score form the colour list
     let colour_key_list = Object.keys(colour_list);
     let colour_funct_list = Object.values(colour_list);
     let max_value = -100;
@@ -193,6 +202,7 @@ function find_fittest_colour(colour_list)
 
 function getServerHealth()
 {
+    //confirms whether the server is currently online
     const url = 'http://127.0.0.1:8080/api/health'
 
     return fetch(url)
@@ -213,6 +223,7 @@ function getServerHealth()
 }
 
 function list_colours(){
+    //lists colour entities in a_data
     if (questions_answered > num_qs){
         const url = 'http://127.0.0.1:8080/api/data/a_data/colour_list';
         fetch(url)
@@ -225,6 +236,7 @@ function list_colours(){
             }
         })
         .then(body => {
+            //displays a list of all colours to the user, just under the list button
             const container1 = document.getElementById('CL')
             container1.replaceChildren()
             for(let i = 0; i < body.length; i++) {
@@ -232,9 +244,9 @@ function list_colours(){
                 div_new.innerHTML = body[i]
                 container1.appendChild(div_new)
             }
+            //updates the form to include list of options
             const container2 = document.getElementById('colour_selection')
             container2.replaceChildren();
-            //the above works fine
             for(let i = 0; i < body.length; i++) {
                 let opt_new = document.createElement("option")
                 opt_new.innerHTML = body[i]
@@ -248,6 +260,7 @@ function list_colours(){
 }
 
 function list_pictures(colour){
+    //lists all pictures associated with a given colour
     const url = 'http://127.0.0.1:8080/api/data/a_data/picture_list?colour=' + colour;
     fetch(url)
     .then((response) => {
@@ -261,6 +274,7 @@ function list_pictures(colour){
     .then(body => {
         const container = document.getElementById('pictures')
         container.replaceChildren()
+        //listing involves creating many image elements via a for loop
         for(let i = 0; i < body.length; i++) {
             let img_new = document.createElement("img");
             img_new.alt = colour + ' ' + String(i);
