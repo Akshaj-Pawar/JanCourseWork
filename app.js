@@ -31,6 +31,7 @@ app.get("/api/data/q_data/score", function(req, resp){
     //gets the score adjustments out of the database
     let opt = req.query.ans;
     let key = req.query.attributekey;
+    console.log(key)
     const index = parseInt(req.query.index, 10);
     resp.send(String(q_data[0][opt][key][index]))
 })
@@ -60,7 +61,7 @@ app.post("/api/data/a_data/add_picture", function(req, resp){
     console.log(a_data["Image_URLs"][post_key])
     resp.json(a_data["Image_URLs"][post_key])
     let data = JSON.stringify(a_data);
-    //fs.writeFileSync("data/a_data.json", data)
+    fs.writeFileSync("data/a_data.json", data)
 })
 
 module.exports = app;

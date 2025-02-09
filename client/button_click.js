@@ -1,25 +1,10 @@
 let online = true;
 questions_answered = 0
 num_qs = 10
-X = [0, 0, 0]
+X = [0, 0, 0, 0]
 ABorC = 'A'
-let attribute_scores = [0, 0, 0]
-let attribute_keys = ['Warmth', 'Grace', 'Virtuosity']
-let flags = 
-{
-    'Lover': 0,
-    'Explorer': 0,
-    'Survivor': 0,
-    'Feral': 0,
-    'Hero': 0,
-    'Dreamer': 0,
-    'Healer': 0,
-    'Orderly': 0,
-    'Wistful': 0,
-    'Utilitarian': 0,
-    'At Peace': 0
-    //currently this feature is not in use
-}
+let attribute_scores = [0, 0, 0, 0]
+let attribute_keys = ['Warmth', 'Grace', 'Virtuosity', 'Enlightenment']
 
 
 //this is the parent function called upon each button press, most other functions will be called by it, including the functions that update the text shown on screen and the colour scores that determine final colour assignment
@@ -33,7 +18,7 @@ async function log_answer()
         //need to ensure you can't keep pressing buttons after we've run out of questions
         if (questions_answered <= num_qs){
             //updating scores
-            for (let i = 0; i < 3; i++){
+            for (let i = 0; i < 4; i++){
                 key = attribute_keys[i];
                 extract_score((questions_answered - 2), key, ans)
                 .then(x_score => {
@@ -65,7 +50,7 @@ async function log_answer()
             console.log(attribute_scores)
 
             //the scores are plugged into fitness functions correspondign to each colour, the highest fitness colour is identified
-            colour_list = create_colour_list(attribute_scores[0], attribute_scores[1], attribute_scores[2])
+            colour_list = create_colour_list(attribute_scores[0], attribute_scores[1], attribute_scores[2], attribute_scores[3])
             console.log(colour_list)
             fit_colour_key = find_fittest_colour(colour_list)
             
@@ -129,7 +114,7 @@ function update_button(option, index)
 
 function extract_score(index, key, ans)
 {
-    //called thrice every time an answer is submitted, retrieves the warmth, grace and virtuosity increments associated with the given question-option combination, see q_data for clarification
+    //called four times every time an answer is submitted, retrieves the warmth, grace and virtuosity increments associated with the given question-option combination, see q_data for clarification
     const url = 'http://127.0.0.1:8080/api/data/q_data/score?index=' + String(index) + '&attributekey=' + key + '&ans=' + ans;
     
     return new Promise((resolve, reject) => {
@@ -160,24 +145,23 @@ function extract_score(index, key, ans)
     })
 }
 
-function create_colour_list(W, G, V, flags)
+function create_colour_list(W, G, V, E)
 {
-    //plugs the three scores into fitness functions for each colour, then returns the object contianing all of them
+    //plugs the four scores into fitness functions for each colour, then returns the object contianing all of them
     //note that the flag feature has not been implemented, if it were to be implemented things wou;ld be reshuffled tor duce the bias
     colour_list = {
-        'Crimson': ((3*Math.sqrt(2) / 2)*W - (3*Math.sqrt(2) / 4)*G - (3*Math.sqrt(2) / 4)*V), //works
-        'Scarlet': (Math.sqrt(5)*W), //too close to crimson for comfort, also the friendship + passion route is the only way to get to scarlet which isn't exactly what we want
-        'Mahogany': (W - 2*V),
-        'Afterglow': (-(1/2)*W + 2*G + (1/2)*V), //win
-        'Fuchsia': ((3*Math.sqrt(2) / 4)*W + (3*Math.sqrt(2) / 4)*G + (3*Math.sqrt(2) / 2)*V), 
-        'Tyrian': (2*V - G), 
-        'Golden': (2*G + W), //way too clsoe to afterglow for comfort
-        'Mint': ((3*Math.sqrt(2) / 4)*G - (3*Math.sqrt(2) / 4)*W - (3*Math.sqrt(2) / 2)*V), //didnt work, superseded by afterglow, too close to azure
-        'Verdant': ((-2)*V - (1/2)*W - (1/2)*G), //overwhelmed by black, needs flags
-        'Azure': (G - 2*W), 
-        'Cerulean': ((-2)*W - G),
-        'Black': ((-1)*Math.sqrt(5)*G) 
-        //i feel like if we shift grace to more mean order and structure and elegance it solves a lot of these problems
+        'Crimson': ((5/2)*W - (5/3)*G - (5/3)*V - (5/3)*E),
+        'Scarlet': (3*W - V + (9/4)*E),
+        'Mahogany': (W + 2*G - V - 3*E),
+        'Afterglow': ((4/5)*W + (13/5)*G - (6/5)*V + (13/5)*E),
+        'Fuchsia': ((19/10)*W - (19/10)*G + (19/10)*V + (19/10)*E), 
+        'Tyrian': (-W - 2*G + 3*V - E), 
+        'Golden': ((9/10)*W + (27/10)*G + (9/10)*V - (9/10)*E),
+        'Mint': (-(9/5)*W + (27/10)*G - (9/5)*V - (9/10)*E),
+        'Verdant': (-(22/9)*W - (11/9)*G + (11/9)*V - (22/9)*E),
+        'Azure': (-W + G + 3*V + 2*E), 
+        'Cerulean': (-(14/5)*W - (7/5)*G - (7/10)*V + (21/10)*E),
+        'Black': (-(10/9)*W - (10/3)*G - (10/9)*V - (10/9)*E) 
     }
     return(colour_list)
 }
